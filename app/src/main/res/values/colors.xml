@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="color_ubawhatever">#FF0000</color>
+    <color name="color_unionwhatever">#FFA07A</color>
+    <color name="color_heritagewhatever">#BC8F8F</color>
+    <color name="color_keystonewhatever">#87CEEB</color>
+    <color name="color_accesswhatever">#EEE8AA</color>
+    <color name="color_stanbicwhatever">#F08080</color>
+    <color name="color_zeenithwhatever">#E6E6FA</color>
+    <color name="color_skyewhatever">#98FB98</color>
+    <color name="color_sterlingwhatever">#FFDAB9</color>
+    <color name="color_fcmwhatever">#B0C4DE</color>
+</resources>
