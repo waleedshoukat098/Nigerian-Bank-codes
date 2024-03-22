@@ -15,7 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.techinnovation.nigerianbankcodes.Model.CodeModel;
+import com.techinnovation.nigerianbankcodes.Models.CodeModel;
 import com.techinnovation.nigerianbankcodes.R;
 
 import java.util.ArrayList;
@@ -72,9 +72,8 @@ public class CodeAdapter extends RecyclerView.Adapter<CodeAdapter.viewHolder> {
     }
 
     @Override
-    public int getItemCount() {
-        return mylist.size();
-    }
+    public int getItemCount(){
+        return mylist.size();       }
 
     // Helper method to copy code to clipboard
     private void copyToClipboard(String code) {

@@ -4,4 +4,27 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_name_is_waleed_shoukat">my name is waleed shoukat</string>
     <string name="ConfirmOperator">aaa</string>
+    <string name="offline_notification_text">Offfline</string>
+
+
+    //Admob TEST ADS
+
+<!--    <string name="app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="BannerIdAdmob">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="intersitialAdUnit">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="splashintersitialAdUnit">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="native_ad">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="appopen">ca-app-pub-3940256099942544/3419835294</string>
+    <string name="facebook_app_id">abc</string>-->
+
+    //Admob Real ADS
+    <string name="app_id">ca-app-pub-1673417426194868~3509864934</string>
+    <string name="intersitialAdUnit">ca-app-pub-1673417426194868/3378002995</string>
+    <string name="splashintersitialAdUnit">ca-app-pub-1673417426194868/8630329674</string>
+    <string name="native_ad">ca-app-pub-1673417426194868/3262452920</string>
+    <string name="BannerIdAdmob">ca-app-pub-1673417426194868/6198418089</string>
+    <string name="appopen">ca-app-pub-1673417426194868/9500558216</string>
+    <string name="facebook_app_id">EAACwZA1234567890ABCDEFGHIJKLMNOPQRSTUVXYZDZD</string>
+
+
 </resources>

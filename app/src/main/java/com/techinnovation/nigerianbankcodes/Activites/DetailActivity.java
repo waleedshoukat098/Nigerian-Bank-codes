@@ -2,16 +2,16 @@ package com.techinnovation.nigerianbankcodes.Activites;
 
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ads.control.ads.AperoAd;
 import com.techinnovation.nigerianbankcodes.Adapter.CodeAdapter;
 import com.techinnovation.nigerianbankcodes.Adapter.DetailAdapter;
-import com.techinnovation.nigerianbankcodes.Model.CodeModel;
-import com.techinnovation.nigerianbankcodes.Model.DetailModel;
+import com.techinnovation.nigerianbankcodes.Models.CodeModel;
+import com.techinnovation.nigerianbankcodes.Models.DetailModel;
 import com.techinnovation.nigerianbankcodes.R;
 import com.techinnovation.nigerianbankcodes.Repositry.Repositry;
 
@@ -34,7 +34,9 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         recyclerView = findViewById(R.id.recyclerViewDetail);
-        pos = getIntent().getIntExtra("key", 0);
+        Tools.hideBottomNavigation(this);
+      /*  AperoAd.getInstance().loadNativeAd(this, getResources().getString(R.string.native_ad), com.ads.control.R.layout.custom_native_admod_medium);
+        pos = getIntent().getIntExtra("key", 0);*/
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         switch (pos){

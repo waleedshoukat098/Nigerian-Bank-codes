@@ -1,7 +1,7 @@
 package com.techinnovation.nigerianbankcodes.Repositry;
 
-import com.techinnovation.nigerianbankcodes.Model.CodeModel;
-import com.techinnovation.nigerianbankcodes.Model.DetailModel;
+import com.techinnovation.nigerianbankcodes.Models.CodeModel;
+import com.techinnovation.nigerianbankcodes.Models.DetailModel;
 import com.techinnovation.nigerianbankcodes.R;
 
 import java.util.ArrayList;

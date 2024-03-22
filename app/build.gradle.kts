@@ -4,21 +4,21 @@ plugins {
 
 android {
     namespace = "com.techinnovation.nigerianbankcodes"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.techinnovation.nigerianbankcodes"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 26
+        targetSdk = 34
+        versionCode = 11
+        versionName = "1.4.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -40,5 +40,9 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.etebarian:meow-bottom-navigation:1.2.0")
+    ///apero Ads
+    implementation ("apero-inhouse:apero-ads:1.8.0-alpha01")
+    //billing
+    implementation ("com.android.billingclient:billing:6.1.0")
 
 }

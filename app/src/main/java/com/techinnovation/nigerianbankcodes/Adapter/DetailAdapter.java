@@ -7,16 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 import com.techinnovation.nigerianbankcodes.Activites.CodeDetailAct;
-import com.techinnovation.nigerianbankcodes.Activites.DetailActivity;
-import com.techinnovation.nigerianbankcodes.Model.DetailModel;
+import com.techinnovation.nigerianbankcodes.Models.DetailModel;
 import com.techinnovation.nigerianbankcodes.R;
 
 import java.util.ArrayList;
