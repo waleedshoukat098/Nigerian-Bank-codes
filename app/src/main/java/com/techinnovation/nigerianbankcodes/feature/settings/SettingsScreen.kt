@@ -1,5 +1,7 @@
 package com.techinnovation.nigerianbankcodes.feature.settings
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,8 +30,8 @@ import androidx.compose.material.icons.filled.PictureAsPdf
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,6 +56,7 @@ import com.techinnovation.nigerianbankcodes.ui.theme.TextGray
 @Composable
 fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     val statusBarPadding = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val navBarPadding = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
@@ -113,15 +117,22 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
                 SettingsItem(
                     icon = Icons.Default.PictureAsPdf,
                     iconColor = Color(0xFF10B981),
-                    title = "Default scan format",
-                    value = "PDF",
+                    title = "Dark mode",
+                    trailing = { Switch(checked = state.darkMode, onCheckedChange = viewModel::setDarkMode) },
                     onClick = {}
                 )
                 SettingsItem(
                     icon = Icons.Default.History,
                     iconColor = Color(0xFFF59E0B),
-                    title = "History limit",
-                    value = "Unlimited",
+                    title = "Auto-save scans",
+                    trailing = { Switch(checked = state.autoSave, onCheckedChange = viewModel::setAutoSave) },
+                    onClick = {}
+                )
+                SettingsItem(
+                    icon = Icons.Default.Person,
+                    iconColor = Color(0xFFEF4444),
+                    title = "Haptic feedback",
+                    trailing = { Switch(checked = state.vibration, onCheckedChange = viewModel::setVibration) },
                     onClick = {}
                 )
             }
@@ -129,8 +140,20 @@ fun SettingsScreen(viewModel: SettingsViewModel = hiltViewModel()) {
             Spacer(modifier = Modifier.height(24.dp))
 
             // Other options
-            SettingsSimpleItem(title = "Rate the app", onClick = {})
-            SettingsSimpleItem(title = "Privacy policy", onClick = {})
+            SettingsSimpleItem(
+                title = "Rate the app",
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${context.packageName}"))
+                    context.startActivity(intent)
+                }
+            )
+            SettingsSimpleItem(
+                title = "Privacy policy",
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com/privacy"))
+                    context.startActivity(intent)
+                }
+            )
             
             Spacer(modifier = Modifier.weight(1f))
             
