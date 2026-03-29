@@ -10,13 +10,16 @@ import androidx.compose.runtime.Composable
 private val LightColors = lightColorScheme(
     primary = BrandPrimary,
     secondary = BrandSecondary,
-    surface = SurfaceLight
+    surface = SurfaceLight,
+    background = SurfaceLight
 )
 
 private val DarkColors = darkColorScheme(
     primary = BrandPrimary,
     secondary = BrandSecondary,
-    surface = SurfaceDark
+    surface = SurfaceDark,
+    background = SurfaceDark,
+    surfaceVariant = SurfaceDark.copy(alpha = 0.7f)
 )
 
 private val AppTypography = Typography()
@@ -26,8 +29,10 @@ fun SmartScannerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
+    val colorScheme = if (darkTheme) DarkColors else LightColors
+
     MaterialTheme(
-        colorScheme = if (darkTheme) DarkColors else LightColors,
+        colorScheme = colorScheme,
         typography = AppTypography,
         content = content
     )

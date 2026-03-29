@@ -46,6 +46,19 @@ class ScannerViewModel @Inject constructor(
         viewModelScope.launch { _events.emit(message) }
     }
 
+    fun saveCurrentResult() {
+        val selectedTab = state.value.selectedTab
+        when (selectedTab) {
+            0 -> saveOcrResult() // Doc/OCR
+            1 -> saveQrResult()  // QR
+            2 -> saveOcrResult() // Text
+        }
+    }
+
+    fun setSelectedTab(index: Int) {
+        _state.update { it.copy(selectedTab = index) }
+    }
+
     fun saveQrResult() {
         val qr = state.value.qrResult ?: run {
             emitInfo("No QR result to save yet")

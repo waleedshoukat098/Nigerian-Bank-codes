@@ -41,11 +41,6 @@ class ConverterViewModel @Inject constructor(
 
     fun calculate() {
         val s = state.value
-        if (!s.isPremium && s.selectedTool in setOf(ConverterTool.Age, ConverterTool.Storage)) {
-            baseState.update { it.copy(error = "This converter is part of Premium plan") }
-            return
-        }
-
         val result = runCatching {
             when (s.selectedTool) {
                 ConverterTool.Unit -> {
@@ -70,6 +65,9 @@ class ConverterViewModel @Inject constructor(
                     val mb = s.inputA.toDouble()
                     "${"%.2f".format(mb / 1024.0)} GB"
                 }
+                ConverterTool.QR_GEN -> {
+                    "Generated QR for: ${s.inputA}"
+                }
             }
         }.getOrElse {
             baseState.update { it.copy(error = "Invalid input. Please check your values.") }
@@ -77,6 +75,12 @@ class ConverterViewModel @Inject constructor(
         }
 
         baseState.update { it.copy(result = result, error = null) }
+    }
+
+    fun generateQR(content: String) {
+        if (content.isBlank()) return
+        baseState.update { it.copy(inputA = content, selectedTool = ConverterTool.QR_GEN) }
+        calculate()
     }
 
     fun saveResult() {
@@ -88,16 +92,16 @@ class ConverterViewModel @Inject constructor(
         viewModelScope.launch {
             saveScanUseCase(
                 HistoryType.CONVERSION,
-                "${s.selectedTool.name} Conversion",
-                "Converter",
-                "${s.inputA}${if (s.inputB.isNotBlank()) ", ${s.inputB}" else ""} => ${s.result}"
+                "${s.selectedTool.name} Result",
+                "Tool",
+                "${s.inputA} => ${s.result}"
             )
-            _events.emit("Conversion saved")
+            _events.emit("Result saved to history")
         }
     }
 }
 
-enum class ConverterTool { Unit, Currency, Percentage, Age, Storage }
+enum class ConverterTool { Unit, Currency, Percentage, Age, Storage, QR_GEN }
 
 data class ConverterUiState(
     val selectedTool: ConverterTool = ConverterTool.Unit,
