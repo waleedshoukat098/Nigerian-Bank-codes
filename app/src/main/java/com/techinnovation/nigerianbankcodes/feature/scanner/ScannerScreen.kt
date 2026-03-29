@@ -1,6 +1,8 @@
 package com.techinnovation.nigerianbankcodes.feature.scanner
 
 import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -78,6 +80,7 @@ fun ScannerScreen(
     var hasCameraPermission by remember { mutableStateOf(false) }
     val snackState = remember { SnackbarHostState() }
     val clipboardManager = LocalClipboardManager.current
+    val context = LocalContext.current
 
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -221,7 +224,16 @@ fun ScannerScreen(
                                         text = "Open",
                                         color = Color.White.copy(alpha = 0.6f),
                                         fontSize = 13.sp,
-                                        modifier = Modifier.clickable { /* Handle Open */ }
+                                        modifier = Modifier.clickable {
+                                            val value = state.qrResult ?: return@clickable
+                                            val normalized = if (value.startsWith("http://") || value.startsWith("https://")) value else "https://$value"
+                                            runCatching {
+                                                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(normalized))
+                                                context.startActivity(browserIntent)
+                                            }.onFailure {
+                                                viewModel.emitInfo("Couldn't open this result")
+                                            }
+                                        }
                                     )
                                     Text(
                                         text = "Copy",
@@ -236,7 +248,14 @@ fun ScannerScreen(
                                         text = "Share",
                                         color = Color.White.copy(alpha = 0.6f),
                                         fontSize = 13.sp,
-                                        modifier = Modifier.clickable { /* Handle Share */ }
+                                        modifier = Modifier.clickable {
+                                            val value = state.qrResult ?: return@clickable
+                                            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                                                type = "text/plain"
+                                                putExtra(Intent.EXTRA_TEXT, value)
+                                            }
+                                            context.startActivity(Intent.createChooser(shareIntent, "Share scan result"))
+                                        }
                                     )
                                 }
                             }
@@ -257,7 +276,13 @@ fun ScannerScreen(
                             .size(48.dp)
                             .clip(CircleShape)
                             .background(Color.White.copy(alpha = 0.1f))
-                            .clickable { /* Extra action */ },
+                            .clickable {
+                                when (state.selectedTab) {
+                                    0 -> viewModel.onOcrExtracted("Document captured at ${java.time.LocalTime.now()}")
+                                    2 -> viewModel.onOcrExtracted("Sample extracted text captured at ${java.time.LocalTime.now()}")
+                                    else -> viewModel.emitInfo("No extra action for QR mode")
+                                }
+                            },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(sideIcon, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))

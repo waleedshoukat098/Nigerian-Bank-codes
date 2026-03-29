@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.techinnovation.nigerianbankcodes.ui.theme.BrandAmber
 import com.techinnovation.nigerianbankcodes.ui.theme.BrandEmerald
 import com.techinnovation.nigerianbankcodes.ui.theme.BrandGhost
@@ -70,6 +71,7 @@ fun HomeScreen(
     onOpenSettings: () -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     var selectedTab by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -144,10 +146,11 @@ fun HomeScreen(
                     modifier = Modifier
                         .size(40.dp)
                         .clip(CircleShape)
-                        .background(BrandGhost),
+                        .background(if (state.isPremium) BrandIndigo else BrandGhost)
+                        .clickable(onClick = onOpenPremium),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(Icons.Default.Person, contentDescription = null, tint = BrandIndigo, modifier = Modifier.size(20.dp))
+                    Icon(Icons.Default.Person, contentDescription = null, tint = if (state.isPremium) BrandWhite else BrandIndigo, modifier = Modifier.size(20.dp))
                 }
             }
 
@@ -263,6 +266,31 @@ fun HomeScreen(
                         bgColor = BrandGhost,
                         onClick = onOpenConverter
                     )
+                }
+            }
+
+            if (state.recentItems.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = "RECENT",
+                    color = TextGray,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    letterSpacing = 0.5.sp
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                state.recentItems.forEach { item ->
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(BrandWhite)
+                            .padding(14.dp)
+                    ) {
+                        Text(item.title, color = BrandInk, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                        Text(item.preview, color = TextGray, fontSize = 12.sp)
+                    }
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
