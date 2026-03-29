@@ -41,19 +41,6 @@ public class Tools {
 
     static boolean isContected;
 
-/*    public static   void setLanguage(Context mcontext,String languageCode ){
-        if (languageCode.equals(ConstantRohi.defaultLanguage)){}
-        else {
-
-            Locale locale = new Locale(languageCode);
-            Locale.setDefault(locale);
-            Configuration config = new Configuration();
-            config.locale = locale;
-            mcontext.getResources().updateConfiguration(config,
-                    mcontext.getResources().getDisplayMetrics());
-        }
-
-    }*/
     public static boolean isBuilVerGreatetLollopop(){
         boolean isGreater=true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -68,7 +55,7 @@ public class Tools {
             Window window = act.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(act.getResources().getColor(R.color.color_accesswhatever));
+            window.setStatusBarColor(ContextCompat.getColor(act, R.color.purple_700));
         }
     }
 
@@ -111,7 +98,7 @@ public class Tools {
     public static void clearSystemBarLight(Activity act) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Window window = act.getWindow();
-            window.setStatusBarColor(ContextCompat.getColor(act, R.color.color_accesswhatever));
+            window.setStatusBarColor(ContextCompat.getColor(act, R.color.purple_700));
         }
     }
 
@@ -125,40 +112,6 @@ public class Tools {
             window.setStatusBarColor(Color.TRANSPARENT);
         }
     }
-
-  /*  public static void displayImageOriginal(Context ctx, ImageView img, @DrawableRes int drawable) {
-        try {
-            Glide.with(ctx).load(drawable)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(img);
-        } catch (Exception e) {
-        }
-    }
-
-    public static void displayImageRound(final Context ctx, final ImageView img, @DrawableRes int drawable) {
-        try {
-            Glide.with(ctx).load(drawable).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
-                @Override
-                protected void setResource(Bitmap resource) {
-                    RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(ctx.getResources(), resource);
-                    circularBitmapDrawable.setCircular(true);
-                    img.setImageDrawable(circularBitmapDrawable);
-                }
-            });
-        } catch (Exception e) {
-        }
-    }
-
-    public static void displayImageOriginal(Context ctx, ImageView img, String url) {
-        try {
-            Glide.with(ctx).load(url)
-                    .crossFade()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(img);
-        } catch (Exception e) {
-        }
-    }*/
 
     public static String getFormattedDateSimple(Long dateTime) {
         SimpleDateFormat newFormat = new SimpleDateFormat("MMMM dd, yyyy");
@@ -187,25 +140,6 @@ public class Tools {
         Resources r = c.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }
-
-   /* public static GoogleMap configActivityMaps(GoogleMap googleMap) {
-        // set map type
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        // Enable / Disable zooming controls
-        googleMap.getUiSettings().setZoomControlsEnabled(false);
-
-        // Enable / Disable Compass iconmain
-        googleMap.getUiSettings().setCompassEnabled(true);
-        // Enable / Disable Rotate gesture
-        googleMap.getUiSettings().setRotateGesturesEnabled(true);
-        // Enable / Disable zooming functionality
-        googleMap.getUiSettings().setZoomGesturesEnabled(true);
-
-        googleMap.getUiSettings().setScrollGesturesEnabled(true);
-        googleMap.getUiSettings().setMapToolbarEnabled(true);
-
-        return googleMap;
-    }*/
 
     public static void copyToClipboard(Context context, String data) {
         ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
